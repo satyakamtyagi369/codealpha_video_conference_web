@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Conference App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <!-- Authentication Section -->
+    <div id="auth-container">
+        <div class="auth-card">
+            <h2 id="auth-title">Login</h2>
+            <form id="auth-form">
+                <input type="text" id="username" placeholder="Username" style="display:none;">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" id="auth-submit">Login</button>
+            </form>
+            <p class="auth-switch">
+                Don't have an account? <span id="toggle-auth">Register</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-container" style="display: none;">
+        <header class="app-header">
+            <h1>Video Conference</h1>
+            <div class="user-info">
+                <span id="user-name">Welcome</span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Room Controls -->
+            <div class="room-controls">
+                <input type="text" id="room-id" placeholder="Enter Room ID">
+                <button id="join-room-btn">Join Room</button>
+                <button id="create-room-btn">Create Room</button>
+                <button id="share-screen-btn" disabled>Share Screen</button>
+                <button id="record-btn" disabled>Record</button>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-container">
+                <button class="tab-btn active" data-tab="video">Video Call</button>
+                <button class="tab-btn" data-tab="whiteboard">Whiteboard</button>
+                <button class="tab-btn" data-tab="files">Files</button>
+                <button class="tab-btn" data-tab="chat">Chat</button>
+            </div>
+
+            <!-- Video Call Tab -->
+            <div id="video-tab" class="tab-content active">
+                <div class="video-grid">
+                    <video id="local-video" autoplay muted></video>
+                    <div id="remote-videos"></div>
+                </div>
+                <div class="video-controls">
+                    <button id="toggle-video">📹</button>
+                    <button id="toggle-audio">🎤</button>
+                    <button id="end-call">📞</button>
+                </div>
+            </div>
+
+            <!-- Whiteboard Tab -->
+            <div id="whiteboard-tab" class="tab-content">
+                <div class="whiteboard-tools">
+                    <button id="pen-tool" class="tool-btn active">✏️</button>
+                    <button id="eraser-tool" class="tool-btn">🧽</button>
+                    <input type="color" id="color-picker" value="#000000">
+                    <input type="range" id="brush-size" min="1" max="20" value="3">
+                    <button id="clear-board">Clear</button>
+                </div>
+                <canvas id="whiteboard"></canvas>
+            </div>
+
+            <!-- Files Tab -->
+            <div id="files-tab" class="tab-content">
+                <div class="file-upload">
+                    <input type="file" id="file-input" multiple>
+                    <button id="upload-btn">Upload Files</button>
+                </div>
+                <div id="file-list" class="file-list"></div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chat-tab" class="tab-content">
+                <div id="chat-messages" class="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Type a message...">
+                    <button id="send-message">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
